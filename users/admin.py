@@ -14,7 +14,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'nickname')
+        fields = ('nickname', 'email', )
 
     def clean_password2(self):
         password1 = self.cleaned_data.get("password1")
@@ -36,29 +36,29 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'nickname', 'password', 'is_active', 'is_admin')
+        fields = ('nickname', 'email', 'password', 'is_active', 'is_admin')
 
 
 class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'nickname', 'is_admin')
+    list_display = ('id', 'nickname', 'email', 'is_admin')
     list_filter = ('is_admin',)
     fieldsets = (
-        (None, {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('nickname', 'profile_img', 'bio', 'followings', 'mbti')}),
+        (None, {'fields': ('nickname', 'password')}),
+        ('Personal info', {'fields': ('email', 'profile_img', 'bio', 'followings', 'mbti')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'nickname', 'profile_img', 'bio', 'followings', 'mbti', 'password1', 'password2'),
+            'fields': ('nickname', 'email', 'profile_img', 'bio', 'followings', 'mbti', 'password1', 'password2'),
         }),
     )
-    search_fields = ('email',)
-    ordering = ('email',)
+    search_fields = ('nickname',)
+    ordering = ('nickname',)
     filter_horizontal = ()
 
 

@@ -10,7 +10,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have a nickname')
 
         user = self.model(
-            nickname=self.normalize_nickname(nickname),
+            nickname=nickname,
         )
 
         user.set_password(password)
@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, nickname, password=None):
         user = self.create_user(
-            nickname = nickname,
+            nickname,
             password=password
         )
 
@@ -34,11 +34,11 @@ class User(AbstractBaseUser):
         max_length=20,
         unique=True,
     )
-    email = models.EmailField(max_length=255, blank=True)
-    profile_img = models.ImageField(blank=True)
-    bio = models.CharField(max_length=255, blank=True)
+    email = models.EmailField(max_length=255, default='', blank=True)
+    profile_img = models.ImageField(default='', blank=True)
+    bio = models.CharField(max_length=255, default='', blank=True)
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
-    mbti = models.CharField(max_length=4, blank=True)
+    mbti = models.CharField(max_length=4, default='', blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 

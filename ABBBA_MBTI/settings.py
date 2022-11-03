@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
+    'movies',
     'users',
     'articles',
 ]
@@ -141,7 +142,7 @@ AUTH_USER_MODEL = 'users.User'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-
+AUTH_USER_MODEL = "users.User"
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
