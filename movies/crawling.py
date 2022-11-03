@@ -35,7 +35,7 @@ movies = soup.select('#old_content > table > tbody > tr')
 
 movie_list=[]
 http = 'https://movie.naver.com/'
-for movie in movies:
+for k, movie in enumerate(movies):
     title = movie.select_one('td.title > div > a')
     if title is not None:
         href = http+title['href']
@@ -59,6 +59,7 @@ for movie in movies:
 
         new_data = {"model":"movies.movie"}
         new_data["fields"] = {}
+        new_data["fields"]["movie_id"] = k
         new_data["fields"]["title"] = title
         new_data["fields"]["description"] = description
         new_data["fields"]["poster"] = poster
