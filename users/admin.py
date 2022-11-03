@@ -6,6 +6,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
 from users.models import User
+from movies.models import Movie
 
 
 class UserCreationForm(forms.ModelForm):
