@@ -35,8 +35,8 @@ class Logout(APIView):
 class ProfileView(APIView) :
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, id) :
-        user = get_object_or_404(User, id=id)
+    def get(self, request, user_id) :
+        user = get_object_or_404(User, id=user_id)
         serializer = ProfileSerializer(user)
         return Response(serializer.data)
 
