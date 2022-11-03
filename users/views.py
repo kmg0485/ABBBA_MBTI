@@ -5,9 +5,11 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
-
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
 from users.serializers import CustomTokenObtainPairSerializer, UserSerializer
-
+from users.models import User
+from users.serializers import ProfileSerializer
 
 
 class UserView(APIView):
@@ -32,3 +34,11 @@ class Logout(APIView):
         response.delete_cookie('refreshtoken')
 
         return response
+    
+class ProfileView(APIView) :
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, id) :
+        user = get_object_or_404(User, id=id)
+        serializer = ProfileSerializer(user)
+        return Response(serializer.data)
