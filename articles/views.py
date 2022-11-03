@@ -98,3 +98,13 @@ class CommentDetailView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("권한이 없습니다", status = status.HTTP_403_FORBIDDEN)
+    
+class LikeView(APIView):
+    def post(self, request, article_id):
+        article = get_object_or_404(Article, id=article_id)
+        if request.user in article.likes.all():
+            article.likes.remove(request.user)
+            return Response("unfollow했습니다.", status=status.HTTP_200_OK)
+        else:
+            article.likes.add(request.user)
+            return Response("follow했습니다.", status=status.HTTP_200_OK)
