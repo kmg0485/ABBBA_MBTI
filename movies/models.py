@@ -4,7 +4,7 @@ from django.db import models
 class Movie(models.Model) :
     title = models.CharField(max_length=100)
     poster = models.TextField()
-    description = models.TextField()
+    description = models.TextField(null=True)
     # likes = models.ManyToManyField(User, related_name="movie_like")
     
     def __str__(self) :
