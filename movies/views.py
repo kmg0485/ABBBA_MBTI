@@ -8,7 +8,6 @@ from rest_framework import status
 from django.core import serializers
 from django.http import HttpResponse
 from .machine import ExtractListMachine
-import json
 
 
 class MovieListView(APIView):
@@ -54,6 +53,5 @@ class extract_MovieLikeView(APIView):
 class EctractMovieListView(APIView):
     
     def get(request, self, id):
-        print(request, id)
         machine = ExtractListMachine(request, id)
         return Response(machine)
