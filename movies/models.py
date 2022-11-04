@@ -8,6 +8,7 @@ class Movie(models.Model) :
     description = models.TextField(null=True)
 
     likes = models.ManyToManyField(User, blank=True, through="MovieLike")
+
     
     def __str__(self) :
         return str(self.title)

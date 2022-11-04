@@ -12,6 +12,8 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 
 class ArticleSerializer(serializers.ModelSerializer):
     comment_set = CommentSerializer(many= True)
+    likes = serializers.StringRelatedField(many=True)
+      
     class Meta:
         model = Article
         fields = "__all__"
@@ -20,5 +22,5 @@ class ArticleCreateSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Article
-        fields = ("pk","title","content","updated_at","create_at",)
+        fields = ("pk","title","content","updated_at","created_at",)
 

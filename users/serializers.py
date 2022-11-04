@@ -2,10 +2,16 @@ from dataclasses import field, fields
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from users.models import User
+from movies.models import Movie, MovieLike
 
 from articles.serializers import ArticleSerializer, CommentSerializer
 from movies. serializers import MovieListSerializer
 
+class ProfileCreateSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = User
+        fields = ("email", "profile_img", "bio", "mbti")
+        
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -47,3 +54,14 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+# 유저 추천 시스템
+class RecommendUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Movie
+        fields = ("title","poster","movie_id",)
+
+class UserSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("nickname","mbti","profile_img",)
