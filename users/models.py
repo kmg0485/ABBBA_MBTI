@@ -34,7 +34,7 @@ class User(AbstractBaseUser):
         max_length=20,
         unique=True,
     )
-    email = models.EmailField(max_length=255, default='', blank=True)
+    email = models.EmailField(max_length=255, unique=True, default='', blank=True)
     profile_img = models.ImageField(default='', blank=True)
     bio = models.CharField(max_length=255, default='', blank=True)
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
