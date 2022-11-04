@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView,)
 from rest_framework.permissions import IsAuthenticated
+from users.serializers import ProfileCreateSerializer
 from users.models import User
 from users.serializers import CustomTokenObtainPairSerializer, UserSerializer, ProfileSerializer, RecommendUserSerializer,UserSimpleSerializer
 from movies.models import MovieLike

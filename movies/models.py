@@ -6,7 +6,9 @@ class Movie(models.Model) :
     title = models.CharField(max_length=100)
     poster = models.TextField()
     description = models.TextField(null=True)
-    likes = models.ManyToManyField(User,blank=True, through="MovieLike")
+
+    likes = models.ManyToManyField(User, blank=True, through="MovieLike")
+
     
     def __str__(self) :
         return str(self.title)
@@ -14,5 +16,5 @@ class Movie(models.Model) :
 class MovieLike(models.Model) :
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    love = models.BooleanField(default=True)
+    love = models.IntegerField(default=True)
 
