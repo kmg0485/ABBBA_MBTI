@@ -47,3 +47,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+class RecommendUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("nickname","mbti",)

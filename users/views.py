@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView,)
 from rest_framework.permissions import IsAuthenticated
 from users.models import User
-from users.serializers import CustomTokenObtainPairSerializer, UserSerializer, ProfileSerializer
+from users.serializers import CustomTokenObtainPairSerializer, UserSerializer, ProfileSerializer, RecommendUserSerializer
 
 
 class UserView(APIView):
@@ -52,3 +52,13 @@ class FollowView(APIView):
         else:
             you.followers.add(me)
             return Response("Follow", status=status.HTTP_200_OK)
+
+
+class UserRecommendView(APIView):
+    def get(self, request):
+        me = request.user
+        recommend_user =User.objects.filter(mbti = me.mbti).exclude(id = me.id)
+        print(recommend_user)
+        serializer = RecommendUserSerializer(recommend_user,many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
