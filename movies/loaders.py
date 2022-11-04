@@ -1,14 +1,14 @@
-"""
+
 import json
 import csv
 
 # Opening JSON file and loading the data
 # into the variable data
-with open(r'/Users/kimminkyu/Desktop/naebaecamp/6_DRF/ABBBA_MBTI/ABBBA_MBTI/movies/movie_movie.json', 'r', encoding = 'utf-8') as json_file:
+with open(r'C:\Users\USER\Desktop\MBTI\movies\movie_movie.json', 'r', encoding = 'utf-8') as json_file:
     jsondata = json.load(json_file)
  
 # now we will open a file for writing
-data_file = open('movie_movie.csv', 'w', newline='')
+data_file = open('movies/movie_movie.csv', 'w', newline='')
 
 # create the csv writer object
 csv_writer = csv.writer(data_file)
@@ -28,4 +28,3 @@ for data in jsondata:
     csv_writer.writerow(data["fields"].values())
  
 data_file.close()
-"""

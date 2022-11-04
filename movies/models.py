@@ -6,8 +6,7 @@ class Movie(models.Model) :
     title = models.CharField(max_length=100)
     poster = models.TextField()
     description = models.TextField(null=True)
-
-    likes = models.ManyToManyField(User,null=True, blank=True, through="MovieLike")
+    likes = models.ManyToManyField(User,blank=True, through="MovieLike")
     
     def __str__(self) :
         return str(self.title)
