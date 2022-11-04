@@ -8,7 +8,7 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-    likes = models.ManyToManyField(User, related_name="like_articles")
+    likes = models.ManyToManyField(User, related_name="like_articles",blank=True)
 
     def __str__(self):
         return str(self.title)
