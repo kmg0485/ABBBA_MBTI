@@ -82,12 +82,15 @@ class FollowView(APIView):
     def post(self, request, user_id):
         you = get_object_or_404(User, id=user_id)
         me = request.user
-        if me in you.followers.all():
-            you.followers.remove(me)
-            return Response("Unfollow", status=status.HTTP_200_OK)
-        else:
-            you.followers.add(me)
-            return Response("Follow", status=status.HTTP_200_OK)
+        if me != you:
+            if me in you.followers.all():
+                you.followers.remove(me)
+                return Response("Unfollow", status=status.HTTP_200_OK)
+            else:
+                you.followers.add(me)
+                return Response("Follow", status=status.HTTP_200_OK)
+        else: # 본인을 팔로우 하려고 하면 팔로우 동작을 하지 않고 메시지를 띄웁니다.
+            return Response("본인을 팔로우할 수 없습니다.", status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserRecommendView(APIView):
