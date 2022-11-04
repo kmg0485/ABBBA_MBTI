@@ -13,7 +13,7 @@ class CommentCreateSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     comment_set = CommentSerializer(many= True)
     likes = serializers.StringRelatedField(many=True)
-     
+      
     class Meta:
         model = Article
         fields = "__all__"
