@@ -3,9 +3,14 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from users.models import User
 
-from articles.serializers import ArticleSerializer
-# from articles.serializers import CommentSerializer
+from articles.serializers import ArticleSerializer, CommentSerializer
+from movies. serializers import MovieListSerializer
 
+class ProfileCreateSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = User
+        fields = ("email", "profile_img", "bio", "mbti")
+        
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -40,10 +45,15 @@ class ProfileSerializer(serializers.ModelSerializer):
     followings = serializers.StringRelatedField(many=True)  # 사용자를 팔로우하는 사람들
     followers = serializers.StringRelatedField(many=True)  # 사용자가 팔로우하는 사람들
 
-    article_set = ArticleSerializer(many=True) #사용자가 작성한 게시글
-    # comment_set = CommentSerializer(many=True) # 사용자가 작성한 덧글들
-    # likes = ArticleSerializer(many=True)
+    article_set = ArticleSerializer(many=True) # 사용자가 작성한 게시글
+    comment_set = CommentSerializer(many=True) # 사용자가 작성한 덧글들
+    movie_set = MovieListSerializer(many=True) # 사용자가 좋아요 한 영화
 
     class Meta:
         model = User
         fields = '__all__'
+
+class RecommendUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("nickname","mbti",)
