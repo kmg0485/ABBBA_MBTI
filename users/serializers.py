@@ -6,6 +6,11 @@ from users.models import User
 from articles.serializers import ArticleSerializer, CommentSerializer
 from movies. serializers import MovieListSerializer
 
+class ProfileCreateSerializer(serializers.ModelSerializer) :
+    class Meta :
+        model = User
+        fields = ("email", "profile_img", "bio", "mbti")
+        
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
