@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from articles.serializers import ArticleSerializer, ArticleCreateSerializer, CommentSerializer, CommentCreateSerializer
 from .models import Article, Comment
+from users.models import User
 # Create your views here.
 
 class ArticleView(APIView):
@@ -98,3 +99,16 @@ class CommentDetailView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         else:
             return Response("권한이 없습니다", status = status.HTTP_403_FORBIDDEN)
+        
+
+class SearchView(APIView) :
+    def get(self, request) :
+        search_word = request.GET.get("search_word")
+        articles = []
+
+        users = User.objects.filter(mbti__contains=search_word)
+        for user in users :
+            user_articles = user.article_set.all()
+            articles += user_articles
+        serializer = ArticleSerializer(articles, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
