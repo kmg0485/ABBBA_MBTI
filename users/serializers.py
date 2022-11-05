@@ -9,7 +9,7 @@ from movies. serializers import MovieListSerializer
 class ProfileCreateSerializer(serializers.ModelSerializer) :
     class Meta :
         model = User
-        fields = ("email", "profile_img", "bio", "mbti")
+        fields = ("email", "profile_img", "bio", "mbti", "nickname")
         
 
 class UserSerializer(serializers.ModelSerializer):
@@ -42,8 +42,8 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         
 
 class ProfileSerializer(serializers.ModelSerializer):
-    followings = serializers.StringRelatedField(many=True)  # 사용자를 팔로우하는 사람들
-    followers = serializers.StringRelatedField(many=True)  # 사용자가 팔로우하는 사람들
+    followings = serializers.StringRelatedField(many=True)  # 사용자가 팔로우하는 사람들
+    followers = serializers.StringRelatedField(many=True)  # 사용자를 팔로우하는 사람들
 
     article_set = ArticleSerializer(many=True) # 사용자가 작성한 게시글
     comment_set = CommentSerializer(many=True) # 사용자가 작성한 덧글들
@@ -56,4 +56,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 class RecommendUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("nickname","mbti",)
+        fields = ("nickname","mbti","profile_img")

@@ -3,6 +3,9 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
+# 이미지 최적화
+from image_optimizer.fields import OptimizedImageField
+
 
 class UserManager(BaseUserManager):
     def create_user(self, nickname, password=None):
@@ -35,7 +38,12 @@ class User(AbstractBaseUser):
         unique=True,
     )
     email = models.EmailField(max_length=255, default='', blank=True)
-    profile_img = models.ImageField(default='', blank=True)
+    profile_img = OptimizedImageField(
+        upload_to="uploads/%Y/%m/%d",
+        optimized_image_output_size=(300, 300),
+        optimized_image_resize_method="cover",  #  "crop", "cover", "contain", "width", "height", "thumbnail" or None
+        null=True, blank=True
+    )
     bio = models.CharField(max_length=255, default='', blank=True)
     followings = models.ManyToManyField('self', symmetrical=False, related_name='followers', blank=True)
     mbti = models.CharField(max_length=4, default='', blank=True)
