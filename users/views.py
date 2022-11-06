@@ -38,12 +38,24 @@ class ProfileView(APIView) :
     permission_classes = [IsAuthenticated]
 
     # 프로필 보기
-    def get(self, request, user_id) :
-        user = get_object_or_404(User, id=user_id)
+    def get(self, request) :
+        user = get_object_or_404(User, id=request.user.id)
         serializer = ProfileSerializer(user)
         return Response(serializer.data)
-    def put(self,request,user_id):
-        user = get_object_or_404(User, id= user_id)
+    
+    # 프로필 입력
+    def post(self,request):
+        user = get_object_or_404(User, id=request.user.id)
+        serializer = ProfileCreateSerializer(user, data = request.data)
+        if serializer.is_valid():
+            serializer.save(mbti=request.data["mbti"].upper())
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    # 프로필 수정
+    def put(self,request):
+        user = get_object_or_404(User, id= request.user.id)
 
         if request.user == user:
             serializer = ProfileCreateSerializer(user, data = request.data)
