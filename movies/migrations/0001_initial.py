@@ -27,14 +27,14 @@ class Migration(migrations.Migration):
             name='MovieLike',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('love', models.BooleanField(default=False)),
-                ('like', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('love', models.BooleanField(default=True)),
                 ('movie', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='movies.movie')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='movie',
             name='likes',
-            field=models.ManyToManyField(blank=True, null=True, through='movies.MovieLike', to=settings.AUTH_USER_MODEL),
+            field=models.ManyToManyField(blank=True, through='movies.MovieLike', to=settings.AUTH_USER_MODEL),
         ),
     ]

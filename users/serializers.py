@@ -2,6 +2,7 @@ from dataclasses import field, fields
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework import serializers
 from users.models import User
+from movies.models import Movie, MovieLike
 
 from articles.serializers import ArticleSerializer, CommentSerializer
 from movies. serializers import MovieListSerializer
@@ -32,6 +33,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod 
     def get_token(cls, user):
@@ -53,7 +55,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = User
         fields = '__all__'
 
+# 유저 추천 시스템
 class RecommendUserSerializer(serializers.ModelSerializer):
     class Meta:
+        model = Movie
+        fields = ("title","poster","movie_id",)
+
+class UserSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
         model = User
+
         fields = ("nickname","mbti","profile_img")
+
