@@ -64,4 +64,4 @@ class RecommendUserSerializer(serializers.ModelSerializer):
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("nickname","mbti","profile_img",)
+        fields = ("nickname","mbti","profile_img","id",)
