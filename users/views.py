@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated,  IsAuthenticatedOrReadOn
 from users.serializers import ProfileCreateSerializer
 
 from users.models import User
-from users.serializers import CustomTokenObtainPairSerializer, UserSerializer, ProfileSerializer, RecommendUserSerializer,UserSimpleSerializer
+from users.serializers import CustomTokenObtainPairSerializer, UserSerializer, ProfileSerializer, RecommendUserSerializer,UserSimpleSerializer,ProfileCreateSerializer
 from movies.models import MovieLike
 
 
@@ -88,20 +88,22 @@ class UserRecommendView(APIView):
     def get(self, request):
         me = request.user
         me_movie_like = MovieLike.objects.filter(user_id = me.id)
-        print(me_movie_like)
         me_movie_like = [x.movie for x in me_movie_like]
         print(me_movie_like)
         recommend_users = set()
         for movie in me_movie_like:
             for like_user in movie.movielike_set.all():
                 recommend_users.add(like_user.user)
-        print(recommend_users)
+
         me_followers = me.followings.filter(followers = me.id)
         for user in recommend_users.copy():
             for  follow_user in me_followers:
                 if user.id == follow_user.id:
+
                     recommend_users.remove(user)
-        print(me_followers)
+
+                    recommend_users.remove(user)                  
+
         for user in recommend_users.copy():
             if user.mbti != me.mbti or user.id == me.id:
                 recommend_users.remove(user)
