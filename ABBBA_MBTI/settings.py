@@ -183,6 +183,7 @@ STATIC_URL = "/static/"
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "/media/"
 
-CORS_ALLOW_ALL_ORIGINS: True
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 OPTIMIZED_IMAGE_METHOD = 'pillow'
