@@ -3,13 +3,15 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import (TokenObtainPairView,TokenRefreshView,)
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,  IsAuthenticatedOrReadOnly
+from users.serializers import ProfileCreateSerializer
+
 from users.models import User
 from users.serializers import CustomTokenObtainPairSerializer, UserSerializer, ProfileSerializer, RecommendUserSerializer,UserSimpleSerializer,ProfileCreateSerializer
 from movies.models import MovieLike
 
 
-class UserView(APIView):
+class UserView(APIView):  
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -18,19 +20,6 @@ class UserView(APIView):
         else:
             return Response({"message":f"${serializer.errors}"}, status=status.HTTP_400_BAD_REQUEST)
     
-    # 프로필 업로드 및 수정
-    # def put(self, request) :
-    #     user = get_object_or_404(User, id=request.user.id)
-    #     if user :
-    #         serializer = ProfileCreateSerializer(user, data = request.data)
-    #         if serializer.is_valid(): 
-    #             serializer.save()
-    #             return Response(serializer.data, status=status.HTTP_200_OK)
-    #         else:
-    #             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    #     else:
-    #         return Response("권한이 없습니다!", status = status.HTTP_403_FORBIDDEN)  
-             
     
     # 추후 회원 탈퇴와 관련해 본인 버튼에만 탈퇴되도록 처리해야 합니다.    
     def delete(self, request):
@@ -44,29 +33,29 @@ class UserView(APIView):
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
-# 로그아웃은 추후 프론트에서 구현합니다.
-# class Logout(APIView):
-#     def post(self, request):
-#         response = Response({
-#             "message": "Logout!"
-#         }, status=status.HTTP_202_ACCEPTED)
-#         response.delete_cookie('refreshtoken')
-
-#         return response
-
 
 class ProfileView(APIView) :
     permission_classes = [IsAuthenticated]
 
     # 프로필 보기
-    def get(self, request, user_id) :
-        user = get_object_or_404(User, id=user_id)
+    def get(self, request) :
+        user = get_object_or_404(User, id=request.user.id)
         serializer = ProfileSerializer(user)
         return Response(serializer.data)
     
-
-    def put(self,request,user_id):
-        user = get_object_or_404(User, id= user_id)
+    # 프로필 입력
+    def post(self,request):
+        user = get_object_or_404(User, id=request.user.id)
+        serializer = ProfileCreateSerializer(user, data = request.data)
+        if serializer.is_valid():
+            serializer.save(mbti=request.data["mbti"].upper())
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    # 프로필 수정
+    def put(self,request):
+        user = get_object_or_404(User, id= request.user.id)
 
         if request.user == user:
             serializer = ProfileCreateSerializer(user, data = request.data)
@@ -77,8 +66,7 @@ class ProfileView(APIView) :
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response("권한이 없습니다!", status = status.HTTP_403_FORBIDDEN)
-
-
+        
 class FollowView(APIView):
     def post(self, request, user_id):
         you = get_object_or_404(User, id=user_id)
@@ -95,6 +83,8 @@ class FollowView(APIView):
 
 
 class UserRecommendView(APIView):
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request):
         me = request.user
         me_movie_like = MovieLike.objects.filter(user_id = me.id) 
