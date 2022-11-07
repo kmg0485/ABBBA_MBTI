@@ -59,7 +59,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 class RecommendUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ("title","poster","movie_id",)
+        fields = ("title","poster","movie_id","likes")
 
 class UserSimpleSerializer(serializers.ModelSerializer):
     class Meta:

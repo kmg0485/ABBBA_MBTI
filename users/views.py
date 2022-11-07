@@ -100,9 +100,7 @@ class UserRecommendView(APIView):
             for  follow_user in me_followers:
                 if user.id == follow_user.id:
 
-                    recommend_users.remove(user)
-
-                    recommend_users.remove(user)                  
+                    recommend_users.remove(user)              
 
         for user in recommend_users.copy():
             if user.mbti != me.mbti or user.id == me.id:
