@@ -10,6 +10,9 @@ MBTI를 바탕으로 한 취향 매칭 서비스 프로젝트
 🔗 https://github.com/kmg0485/ABBBA_MBTI_front.git
 </br></br>
 
+🔗팀 노션
+https://www.notion.so/2-730aeb20c24f414f889915f81393c62b
+
 </div>
 </br></br></br>
 
