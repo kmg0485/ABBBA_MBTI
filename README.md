@@ -36,8 +36,11 @@ https://www.notion.so/2-730aeb20c24f414f889915f81393c62b
 
 </br></br></br>
 
-
 >### API
+![스크린샷 2022-11-08 12 56 17](https://user-images.githubusercontent.com/108252926/200471726-662d175f-ab75-4ec0-afd2-89f39e490742.png)
+
+
+>### ERD
 <img width="650" alt="스크린샷 2022-11-08 11 59 20" src="https://user-images.githubusercontent.com/108252926/200465246-7da6f2d6-bc9c-4c21-8604-9d37da553f69.png">
 
 >### 일정표
