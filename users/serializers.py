@@ -45,7 +45,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     followings = UserSerializer(many=True)  # 사용자가 팔로우하는 사람들
-    followers = serializers.StringRelatedField(many=True)  # 사용자를 팔로우하는 사람들
+    followers = UserSerializer(many=True)  # 사용자를 팔로우하는 사람들
 
     article_set = ArticleSerializer(many=True) # 사용자가 작성한 게시글
     comment_set = CommentSerializer(many=True) # 사용자가 작성한 덧글들
