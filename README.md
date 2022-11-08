@@ -37,7 +37,9 @@ https://www.notion.so/2-730aeb20c24f414f889915f81393c62b
 </br></br></br>
 
 >### API
-![스크린샷 2022-11-08 12 56 17](https://user-images.githubusercontent.com/108252926/200471726-662d175f-ab75-4ec0-afd2-89f39e490742.png)
+<img width="1222" alt="스크린샷 2022-11-08 14 09 01" src="https://user-images.githubusercontent.com/108252926/200480210-cd7d8c56-2891-4a21-9620-26f950866458.png">
+<img width="1222" alt="스크린샷 2022-11-08 14 09 11" src="https://user-images.githubusercontent.com/108252926/200480223-6887a34d-b70c-4ddc-b056-721bc0d18bcd.png">
+
 
 
 >### ERD
