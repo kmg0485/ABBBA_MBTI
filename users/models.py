@@ -35,7 +35,8 @@ class User(AbstractBaseUser):
     nickname = models.CharField(
         verbose_name='nickname',
         max_length=20,
-        unique=True,
+        unique=True,error_messages={'unique': "이미 존재하는 닉네임입니다."}
+
     )
     email = models.EmailField(max_length=255, default='', blank=True)
     profile_img = OptimizedImageField(
