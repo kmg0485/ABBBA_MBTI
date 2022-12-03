@@ -14,11 +14,9 @@ class ProfileCreateSerializer(serializers.ModelSerializer) :
         
 
 class UserSerializer(serializers.ModelSerializer):
-    # password_check= serializers.CharField(error_messages={'required':'비밀번호 확인까지 입력해 주세요.', 'blank':'비밀번호 확인까지 입력해 주세요.'}) 
 
     class Meta:
         model = User
-        # fields = "__all__"
         fields = ("nickname","password","mbti","profile_img" )
         extra_kwargs = {
             "nickname" : {"error_messages":{
