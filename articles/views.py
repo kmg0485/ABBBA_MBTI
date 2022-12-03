@@ -5,11 +5,10 @@ from rest_framework.generics import get_object_or_404
 from articles.serializers import ArticleSerializer, ArticleCreateSerializer, CommentSerializer, CommentCreateSerializer
 from .models import Article, Comment
 from users.models import User
-# Create your views here.
 
 class ArticleView(APIView):
 
-    def get(self, request):
+    def get(self):
 
         articles = Article.objects.all()
         serializer = ArticleSerializer(articles, many=True)
