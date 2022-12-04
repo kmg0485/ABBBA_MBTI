@@ -21,7 +21,7 @@ class UserView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     
-    # 추후 회원 탈퇴와 관련해 본인 버튼에만 탈퇴되도록 처리해야 합니다.    
+
     def delete(self, request):
         user = get_object_or_404(User, id=request.user.id)
         if user:

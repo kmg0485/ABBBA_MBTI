@@ -41,17 +41,14 @@ class MovieLikeView(APIView) :
             return Response("💖💖💖💖", status=status.HTTP_200_OK)
 
 
-
 class extract_MovieLikeView(APIView):
-
     def get(self, request):
         extract_MovieLike = MovieLike.objects.filter(id__isnull=False).order_by("user_id")
         extract_list = serializers.serialize('json', extract_MovieLike)
         return HttpResponse(extract_list, content_type="text/json-comment-filtered")
     
     
-class EctractMovieListView(APIView):
-    
+class ExtractMovieListView(APIView):
     def get(request, self, id):
         machine = ExtractListMachine(request, id)
         return Response(machine)

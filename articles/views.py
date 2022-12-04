@@ -7,7 +7,6 @@ from .models import Article, Comment
 from users.models import User
 
 class ArticleView(APIView):
-
     def get(self):
 
         articles = Article.objects.all()
@@ -27,7 +26,6 @@ class ArticleView(APIView):
 
 
 class ArticleDetailView(APIView):
-
     def get(self, request, article_id):
         article = get_object_or_404(Article,id= article_id)
         serializer = ArticleSerializer(article)
@@ -46,11 +44,8 @@ class ArticleDetailView(APIView):
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             return Response("권한이 없습니다!", status = status.HTTP_403_FORBIDDEN)
-
-
         
     def delete(self,request,article_id):
-
         article = get_object_or_404(Article, id= article_id)
         
         if request.user == article.user:
@@ -59,8 +54,8 @@ class ArticleDetailView(APIView):
         else:
             return Response("권한이 없습니다!", status = status.HTTP_403_FORBIDDEN)
 
+
 class CommentView(APIView):
-    
     def get(self, request,article_id):
         article = Article.objects.get(id= article_id)
         comments = article.comment_set.all()
@@ -76,8 +71,8 @@ class CommentView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CommentDetailView(APIView):
 
+class CommentDetailView(APIView):
     def put(self, request, article_id, comment_id):
         comment = get_object_or_404(Comment, id= comment_id)
         if request.user == comment.user:
@@ -110,16 +105,16 @@ class LikeView(APIView):
             article.likes.add(request.user)
             return Response("좋아요", status=status.HTTP_200_OK)
 
-        
 
 class SearchView(APIView) :
     def get(self, request) :
         search_word = request.GET.get("search_word")
         articles = []
-
         users = User.objects.filter(mbti__contains=search_word)
+        
         for user in users :
             user_articles = user.article_set.all()
             articles += user_articles
+            
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
