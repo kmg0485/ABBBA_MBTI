@@ -66,8 +66,6 @@ for k, movie in enumerate(movies):
         movie_list.append(new_data)
        
 driver.quit()
-# from pprint import pprint
-# pprint(movie_list)
 
-with open('movie_movie.json','w',encoding='UTF-8') as f :
+with open('movies/movie_data/movies.json','w',encoding='UTF-8') as f :
     json.dump(movie_list, f,default=str, ensure_ascii=False, indent=2)
